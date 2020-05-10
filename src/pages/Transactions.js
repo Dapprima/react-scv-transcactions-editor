@@ -18,7 +18,7 @@ function Transactions({ showImportModal, showExportModal }) {
     <Row>
       <ImportFileModal />
       <ExportFileModal />
-      <Col xs={2} className="border p-0">
+      <Col xs={2} className="p-0">
         <FileList />
       </Col>
       <Col xs={10}>

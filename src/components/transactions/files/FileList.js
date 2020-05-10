@@ -7,11 +7,11 @@ import { changeFile } from "../../../redux/actions/file";
 
 function FileList({ fileNames, currentFile, changeFile }) {
   return (
-    <ListGroup>
+    <ListGroup className="border">
       {fileNames.map((fileName, index) => (
         <ListGroup.Item key={index}>
           <Button
-            className="w-100 "
+            className="w-100"
             active={currentFile === fileName}
             onClick={() => changeFile(fileName)}
           >

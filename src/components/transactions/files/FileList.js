@@ -1,15 +1,28 @@
 import React from "react";
 import { ListGroup, Button } from "react-bootstrap";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-export default function FileList() {
+function FileList({ fileNames }) {
   return (
     <ListGroup>
-      <ListGroup.Item className="-1">
-        <Button className="w-100">Transactions</Button>
-      </ListGroup.Item>
-      <ListGroup.Item className=" mb-1">
-        <Button className="bg-secondary w-100">New transactions</Button>
-      </ListGroup.Item>
+      {fileNames
+        ? fileNames.map((fileName, index) => (
+            <ListGroup.Item key={index}>
+              <Button className="w-100">{fileName}</Button>
+            </ListGroup.Item>
+          ))
+        : ""}
     </ListGroup>
   );
 }
+
+FileList.propTypes = {
+  fileNames: PropTypes.array,
+};
+
+const mapStateToProps = (state) => ({
+  fileNames: state.fileReducer.fileNames,
+});
+
+export default connect(mapStateToProps, null)(FileList);

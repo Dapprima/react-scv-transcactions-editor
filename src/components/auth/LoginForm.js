@@ -20,6 +20,8 @@ export default function LoginForm() {
           placeholder="Enter username"
           value={username}
           onChange={(event) => setUsername(event.target.value)}
+          required={true}
+          minLength={2}
         />
       </Form.Group>
       <Form.Group>
@@ -29,6 +31,8 @@ export default function LoginForm() {
           placeholder="Enter password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
+          required={true}
+          minLength={8}
         />
       </Form.Group>
       <Button variant="primary" type="submit">

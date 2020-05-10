@@ -8,6 +8,9 @@ function FileData({ transactions }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [dataPerPage] = useState(10);
 
+  // Cut the csv file header
+  transactions = transactions.slice(1);
+
   // Get current data
   const indexOfLastData = currentPage * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;

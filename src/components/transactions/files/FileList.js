@@ -3,26 +3,40 @@ import { ListGroup, Button } from "react-bootstrap";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-function FileList({ fileNames }) {
+import { changeFile } from "../../../redux/actions/file";
+
+function FileList({ fileNames, currentFile, changeFile }) {
   return (
     <ListGroup>
-      {fileNames
-        ? fileNames.map((fileName, index) => (
-            <ListGroup.Item key={index}>
-              <Button className="w-100">{fileName}</Button>
-            </ListGroup.Item>
-          ))
-        : ""}
+      {fileNames.map((fileName, index) => (
+        <ListGroup.Item key={index}>
+          <Button
+            className="w-100 "
+            active={currentFile === fileName}
+            onClick={() => changeFile(fileName)}
+          >
+            {fileName}
+          </Button>
+        </ListGroup.Item>
+      ))}
     </ListGroup>
   );
 }
 
 FileList.propTypes = {
-  fileNames: PropTypes.array,
+  fileNames: PropTypes.array.isRequired,
+  currentFile: PropTypes.string.isRequired,
+  changeFile: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   fileNames: state.fileReducer.fileNames,
+  currentFile: state.fileReducer.currentFile,
 });
 
-export default connect(mapStateToProps, null)(FileList);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    changeFile: (fileName) => dispatch(changeFile(fileName)),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(FileList);

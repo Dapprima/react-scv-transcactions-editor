@@ -1,4 +1,10 @@
-import { IMPORT_FILE, CHANGE_FILE, TOGGLE_FILTERS } from "../types";
+import {
+  IMPORT_FILE,
+  CHANGE_FILE,
+  TOGGLE_FILTERS,
+  EDIT,
+  DELETE,
+} from "../types";
 
 const initialState = {
   allData: {},
@@ -47,6 +53,27 @@ export default function fileReducer(state = initialState, action) {
         ...state,
         filters: newFilters,
         currentData: newCurrentData,
+      };
+    case EDIT:
+      let editData = [...state.currentData];
+      editData = editData.map((data) => {
+        if (data[0] === action.payload[0]) {
+          return action.payload;
+        }
+        return data;
+      });
+      return {
+        ...state,
+        defaultData: editData,
+        currentData: editData,
+      };
+    case DELETE:
+      let delData = [...state.currentData];
+      delData = delData.filter((data) => data[0] !== action.payload);
+      return {
+        ...state,
+        defaultData: delData,
+        currentData: delData,
       };
 
     default:

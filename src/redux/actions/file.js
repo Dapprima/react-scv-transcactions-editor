@@ -1,4 +1,10 @@
-import { IMPORT_FILE, CHANGE_FILE, TOGGLE_FILTERS } from "../types";
+import {
+  IMPORT_FILE,
+  CHANGE_FILE,
+  TOGGLE_FILTERS,
+  EDIT,
+  DELETE,
+} from "../types";
 
 export function importFile(data) {
   return {
@@ -17,5 +23,18 @@ export function toggleFilters(filter) {
   return {
     type: TOGGLE_FILTERS,
     payload: filter,
+  };
+}
+
+export function editRow(newRow) {
+  return {
+    type: EDIT,
+    payload: newRow,
+  };
+}
+export function deleteRow(id) {
+  return {
+    type: DELETE,
+    payload: id,
   };
 }

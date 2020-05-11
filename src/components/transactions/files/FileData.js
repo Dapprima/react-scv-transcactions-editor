@@ -4,7 +4,10 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Pagination from "../../layouts/Pagination";
 
-function FileData({ transactions }) {
+import { showEditModal } from "../../../redux/actions/ui";
+import { showDeleteModal } from "../../../redux/actions/ui";
+
+function FileData({ transactions, showEditModal, showDeleteModal }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [dataPerPage] = useState(10);
 
@@ -41,8 +44,22 @@ function FileData({ transactions }) {
               <td>{transact[3]}</td>
               <td>{transact[4]}</td>
               <td className="d-flex justify-content-center">
-                <Button className="bg-info mr-1">Edit</Button>
-                <Button className="bg-danger">Delete</Button>
+                <Button
+                  className="bg-info mr-1"
+                  onClick={() => {
+                    showEditModal(transact);
+                  }}
+                >
+                  Edit
+                </Button>
+                <Button
+                  className="bg-danger"
+                  onClick={() => {
+                    showDeleteModal(transact[0]);
+                  }}
+                >
+                  Delete
+                </Button>
               </td>
             </tr>
           ))}
@@ -60,10 +77,19 @@ function FileData({ transactions }) {
 
 FileData.propTypes = {
   transactions: PropTypes.array,
+  showEditModal: PropTypes.func,
+  showDeleteModal: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
   transactions: state.fileReducer.currentData,
 });
 
-export default connect(mapStateToProps, null)(FileData);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    showEditModal: (data) => dispatch(showEditModal(data)),
+    showDeleteModal: (id) => dispatch(showDeleteModal(id)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FileData);

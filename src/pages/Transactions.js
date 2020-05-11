@@ -9,6 +9,8 @@ import Type from "../components/transactions/filters/Type";
 import FileData from "../components/transactions/files/FileData";
 import ExportFileModal from "../components/transactions/modals/ExportFileModal";
 import ImportFileModal from "../components/transactions/modals/ImportFileModal";
+import EditModal from "../components/transactions/modals/EditModal";
+import DeleteModal from "../components/transactions/modals/DeleteModal";
 
 import { showImportModal } from "../redux/actions/ui";
 import { showExportModal } from "../redux/actions/ui";
@@ -18,6 +20,8 @@ function Transactions({ showImportModal, showExportModal }) {
     <Row>
       <ImportFileModal />
       <ExportFileModal />
+      <EditModal />
+      <DeleteModal />
       <Col xs={2} className="p-0">
         <FileList />
       </Col>
